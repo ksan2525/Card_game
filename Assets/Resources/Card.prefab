@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 4021850420408178851}
   - component: {fileID: -5988659593345802408}
   - component: {fileID: -5402757484786938317}
+  - component: {fileID: 8112985239255761155}
+  - component: {fileID: -332446725310278066}
   m_Layer: 5
-  m_Name: Iron_sword
-  m_TagString: Untagged
+  m_Name: Card
+  m_TagString: card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +77,34 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &8112985239255761155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460568659116490130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e497647d073fd0544948c121ddd413be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 0}
+--- !u!114 &-332446725310278066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460568659116490130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411534178389c4d49bee023ad66962a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 5562772200200816881}
+  powerText: {fileID: 2085972669474709495}
+  iconImage: {fileID: 1112672953972111251}
 --- !u!1 &4356792927960260250
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +117,7 @@ GameObject:
   - component: {fileID: 2456701847969696262}
   - component: {fileID: 2085972669474709495}
   m_Layer: 5
-  m_Name: Text
+  m_Name: power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +183,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u76F8\u624B\u306B1\u30C0\u30E1\u30FC\u30B8\u4E0E\u3048\u308B"
+  m_Text: 1
 --- !u!1 &4370741898038633181
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +271,7 @@ GameObject:
   - component: {fileID: 7996652294880756174}
   - component: {fileID: 5562772200200816881}
   m_Layer: 5
-  m_Name: Text
+  m_Name: name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

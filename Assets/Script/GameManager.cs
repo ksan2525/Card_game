@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject cardPrefab;
-    [SerializeField] Transform playerHand;
+    [SerializeField] CardController cardPrefab;
+    [SerializeField] Transform playerHand,playerField;
 
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            //ŽèŽD‚ðˆê–‡”z‚é(Ž©•ª)
-            Instantiate(cardPrefab, playerHand);
-        }
+        StartGame();
+    }
 
+    void StartGame()
+    {
         
-
+            CreateCard(1, playerHand);
+            CreateCard(2, playerHand);
+            CreateCard(2, playerHand);
+            CreateCard(1, playerHand);
+            CreateCard(2, playerHand);
+            CreateCard(1, playerHand);
+        
 
     }
 
+    void CreateCard(int cardID, Transform place)
+    {
+        CardController card = Instantiate(cardPrefab, place);
+        card.Init(cardID);
+    }
 }
