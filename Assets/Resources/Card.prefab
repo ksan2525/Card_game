@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5402757484786938317}
   - component: {fileID: 8112985239255761155}
   - component: {fileID: -332446725310278066}
+  - component: {fileID: -6859334491598854611}
   m_Layer: 5
   m_Name: Card
   m_TagString: card
@@ -43,7 +44,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 253.8}
+  m_SizeDelta: {x: 135, y: 190.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4021850420408178851
 CanvasRenderer:
@@ -105,7 +106,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 5562772200200816881}
   powerText: {fileID: 2085972669474709495}
+  costText: {fileID: 7287471737781957727}
   iconImage: {fileID: 1112672953972111251}
+--- !u!114 &-6859334491598854611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460568659116490130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22649d53d6974b4a828c8e2936d13ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4356792927960260250
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +132,7 @@ GameObject:
   - component: {fileID: 2456701847969696262}
   - component: {fileID: 2085972669474709495}
   m_Layer: 5
-  m_Name: power
+  m_Name: Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48, y: -104}
-  m_SizeDelta: {x: 250, y: 100}
+  m_AnchoredPosition: {x: 34.953663, y: -76.09686}
+  m_SizeDelta: {x: 202.9705, y: 73.2252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2456701847969696262
 CanvasRenderer:
@@ -172,8 +186,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 75
+    m_Font: {fileID: 12800000, guid: 5d6eb4ba9f40de34787393d4a650c1fd, type: 3}
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -184,7 +198,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: '3000
+
+'
 --- !u!1 &4370741898038633181
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +343,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5d6eb4ba9f40de34787393d4a650c1fd, type: 3}
-    m_FontSize: 250
+    m_FontSize: 125
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -374,8 +390,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60, y: 98.5}
-  m_SizeDelta: {x: -140, y: -213}
+  m_AnchoredPosition: {x: -46.4, y: 74.14953}
+  m_SizeDelta: {x: -106.9115, y: -163.6484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8178282465695208999
 CanvasRenderer:
@@ -427,7 +443,7 @@ GameObject:
   - component: {fileID: 7996652294880756174}
   - component: {fileID: 5562772200200816881}
   m_Layer: 5
-  m_Name: name
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,8 +465,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13}
-  m_SizeDelta: {x: 625, y: 90}
+  m_AnchoredPosition: {x: 0, y: -8.1022}
+  m_SizeDelta: {x: 472, y: 64.8179}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7996652294880756174
 CanvasRenderer:
@@ -482,7 +498,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5d6eb4ba9f40de34787393d4a650c1fd, type: 3}
-    m_FontSize: 75
+    m_FontSize: 52
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -528,8 +544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 65}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7294346650951790028
 CanvasRenderer:

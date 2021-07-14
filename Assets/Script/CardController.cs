@@ -18,4 +18,8 @@ public class CardController : MonoBehaviour
         view.show(model);//•\Ž¦
     }
 
+    public void DestroyCard(CardController card)
+    {
+        Destroy(card.gameObject);
+    }
 }
