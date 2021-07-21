@@ -8,7 +8,7 @@ public class CardEntity : ScriptableObject
 {
     public int cardID;
     public new string name;
-    public int power;
     public int cost;
+    public int power;    
     public Sprite icon;
 }

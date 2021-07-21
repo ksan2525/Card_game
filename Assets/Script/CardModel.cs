@@ -10,8 +10,10 @@ public class CardModel
     public int cost;
     public int power;
     public Sprite icon;
+
+    public bool PlayerCard = false;
     public bool canAttack = false;
-    public CardModel(int cardID)//データを受け取り、その処理
+    public CardModel(int cardID, bool playerCard)//データを受け取り、その処理
     {
         CardEntity cardEntity = Resources.Load<CardEntity>("CardEntityList/Card" + cardID);//CardEntityのパス
 
@@ -20,5 +22,7 @@ public class CardModel
         cost = cardEntity.cost;
         power = cardEntity.power;
         icon = cardEntity.icon;
+
+        PlayerCard = playerCard;
     }
 }

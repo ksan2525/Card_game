@@ -36,7 +36,17 @@ public class GameManager : MonoBehaviour
     void CreateCard(int cardID, Transform place)
     {
         CardController card = Instantiate(cardPrefab, place);
-        card.Init(cardID);
+
+        //Playerの手札に精製されたカードはPlayerのカードとする
+        if (place == playerHand)
+        {
+            card.Init(cardID, true);
+        }
+        else
+        {
+            card.Init(cardID, false);
+        }
+
     }
 
     void DrowCard(Transform hand)//カードを引く
@@ -49,7 +59,7 @@ public class GameManager : MonoBehaviour
 
         CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
 
-        if (playerHandCardList.Length < 6)
+        if (playerHandCardList.Length < 9)
         {
             //デッキの一番上のカードを切り取り、手札に加える
             int cardID = deck[0];
@@ -59,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void SetStartHand()//手h打を三枚配る
+    void SetStartHand()//手札を三枚配る
     {
         for (int i = 0; i < 3; i++)
         {
@@ -91,6 +101,7 @@ public class GameManager : MonoBehaviour
 
         CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
         SetAttackableFieldCard(playerFieldCardList, true);
+
         DrowCard(playerHand);//手札を一枚加える
     }
 
@@ -111,6 +122,11 @@ public class GameManager : MonoBehaviour
 
     public void CardBattle(CardController attackCard, CardController defenceCard)
     {
+        //攻撃カードと攻撃されるカードが同じプレイヤーのカードならバトルしない
+        if(attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
+        {
+            return;
+        }
         //攻撃カードがアタック可能でなければ攻撃しないで処理終了する
         if (attackCard.model.canAttack == false)
         {
