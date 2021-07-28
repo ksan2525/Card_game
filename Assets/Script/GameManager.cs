@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CardController cardPrefab;
     [SerializeField] Transform playerHand, playerField, enemyField;
+    [SerializeField] Text playerLeaderHPText;
+    [SerializeField] Text enemyLeaderHPText;
 
     bool isPlayerTurn = true;
     List<int> deck = new List<int>() { 1, 2, 3, 1, 1, 2, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3 };
@@ -25,6 +28,10 @@ public class GameManager : MonoBehaviour
 
     void StartGame()//初期値の設定
     {
+        enemyLeaderHP = 5000;
+        playerLeaderHP = 5000;
+        ShowLeaderHP();
+
         //初期手札を配る
         SetStartHand();
         //ターンの決定
@@ -123,7 +130,7 @@ public class GameManager : MonoBehaviour
     public void CardBattle(CardController attackCard, CardController defenceCard)
     {
         //攻撃カードと攻撃されるカードが同じプレイヤーのカードならバトルしない
-        if(attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
+        if (attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
         {
             return;
         }
@@ -152,13 +159,49 @@ public class GameManager : MonoBehaviour
         }
 
         attackCard.model.canAttack = false;
+        attackCard.view.SetCanAttackPanel(false);
     }
 
-    void SetAttackableFieldCard(CardController[] cardList,bool canAttack)
+    void SetAttackableFieldCard(CardController[] cardList, bool canAttack)
     {
         foreach (CardController card in cardList)
         {
             card.model.canAttack = canAttack;
+            card.view.SetCanAttackPanel(canAttack);
         }
     }
+
+    public int playerLeaderHP;
+    public int enemyLeaderHP;
+
+    public void AttackToLeader(CardController attackCard, bool isPlayerCard)
+    {
+        if (attackCard.model.canAttack == false)
+        {
+            return;
+        }
+
+        enemyLeaderHP -= attackCard.model.power;
+
+        attackCard.model.canAttack = false;
+        attackCard.view.SetCanAttackPanel(false);
+        Debug.Log("敵のHPは、" + enemyLeaderHP);
+        ShowLeaderHP();
+    }
+
+    public void ShowLeaderHP()
+    {
+        if (playerLeaderHP <= 0)
+        {
+            playerLeaderHP = 0;
+        }
+        if (enemyLeaderHP <= 0)
+        {
+            enemyLeaderHP = 0;
+        }
+
+        playerLeaderHPText.text = playerLeaderHP.ToString();
+        enemyLeaderHPText.text = enemyLeaderHP.ToString();
+    }
+
 }
