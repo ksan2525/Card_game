@@ -12,6 +12,7 @@ public class CardModel
     public Sprite icon;
 
     public bool PlayerCard = false;
+
     public bool canAttack = false;
     public CardModel(int cardID, bool playerCard)//データを受け取り、その処理
     {

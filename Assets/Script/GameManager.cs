@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
     bool isPlayerTurn = true;
     List<int> deck = new List<int>() { 1, 2, 3, 1, 1, 2, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3 };
 
+
+    private void Start()
+    {
+        StartGame();
+    }
+
     public static GameManager instance;
     public void Awake()
     {
@@ -21,11 +27,6 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
     }
-    private void Start()
-    {
-        StartGame();
-    }
-
     void StartGame()//初期値の設定
     {
         enemyLeaderHP = 5000;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     {
         CardController card = Instantiate(cardPrefab, place);
 
-        //Playerの手札に精製されたカードはPlayerのカードとする
+        // Playerの手札に生成されたカードはPlayerのカードとする
         if (place == playerHand)
         {
             card.Init(cardID, true);
@@ -120,16 +121,21 @@ public class GameManager : MonoBehaviour
 
         if (enemyFieldCardList.Length < 5)
         {
-            CreateCard(1, enemyField);//カードを召喚
-
-
+            if (enemyFieldCardList.Length < 2)
+            {
+                CreateCard(3, enemyField);
+            }
+            else
+            {
+                CreateCard(2, enemyField);
+            }          
         }
         ChangeTurn();//ターンエンドする
     }
 
     public void CardBattle(CardController attackCard, CardController defenceCard)
     {
-        //攻撃カードと攻撃されるカードが同じプレイヤーのカードならバトルしない
+        // 攻撃カードと攻撃されるカードが同じプレイヤーのカードならバトルしない
         if (attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
         {
             return;
@@ -139,19 +145,19 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        //攻撃側のパワーが高かった場合、攻撃されたカードを破壊する
+        // 攻撃側のパワーが高かった場合、攻撃されたカードを破壊する
         if (attackCard.model.power > defenceCard.model.power)
         {
             defenceCard.DestroyCard(defenceCard);
         }
 
-        //攻撃された側のパワーが高かった場合、攻撃側のカードを破壊する
+        // 攻撃された側のパワーが高かった場合、攻撃側のカードを破壊する
         if (attackCard.model.power < defenceCard.model.power)
         {
             attackCard.DestroyCard(attackCard);
         }
 
-        //パワーが同じだった場合、両方のカードを破壊する
+        // パワーが同じだった場合、両方のカードを破壊する
         if (attackCard.model.power == defenceCard.model.power)
         {
             attackCard.DestroyCard(attackCard);

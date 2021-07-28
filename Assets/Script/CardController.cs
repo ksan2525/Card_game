@@ -12,9 +12,9 @@ public class CardController : MonoBehaviour
         view = GetComponent<CardView>();
     }
 
-    public void Init(int cardID,bool playerCard)//カードを生成したときに呼ばれる関数
+    public void Init(int cardID, bool playerCard)//カードを生成したときに呼ばれる関数
     {
-        model = new CardModel(cardID,playerCard);//カードデータを生成
+        model = new CardModel(cardID, playerCard);//カードデータを生成
         view.show(model);//表示
     }
 
