@@ -16,12 +16,56 @@ public class GameManager : MonoBehaviour
     public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
 
     bool isPlayerTurn = true;
-    List<int> deck = new List<int>() { 1, 2, 3, 1, 1, 2, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3 };
+
+    List<int> deck = new List<int>() { 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, };
+    List<int> enemydeck = new List<int>() { 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, };
 
 
     private void Start()
     {
         StartGame();
+    }
+
+    void Shuffle()//デッキをシャッフルする
+    {
+        Debug.Log("デッキをシャッフルしたよ！");
+        //整数 n の初期値はデッキの枚数
+        int n = deck.Count;
+
+        //nが1より小さくなるまで繰り返す
+        while (n > 1)
+        {
+            n--;
+
+            //kは0 ～ n+1 のランダムな値
+            int k = UnityEngine.Random.Range(0, n + 1);
+
+            //k番目のカードをtempに代入
+            int temp = deck[k];
+            deck[k] = deck[n];
+            deck[n] = temp;
+        }
+    }
+
+    void enemyShuffle()//デッキをシャッフルする
+    {
+        Debug.Log("デッキをシャッフルしたよ！");
+        //整数 n の初期値はデッキの枚数
+        int n = enemydeck.Count;
+
+        //nが1より小さくなるまで繰り返す
+        while (n > 1)
+        {
+            n--;
+
+            //kは0 ～ n+1 のランダムな値
+            int k = UnityEngine.Random.Range(0, n + 1);
+
+            //k番目のカードをtempに代入
+            int temp = enemydeck[k];
+            enemydeck[k] = enemydeck[n];
+            enemydeck[n] = temp;
+        }
     }
 
     public static GameManager instance;
@@ -34,6 +78,9 @@ public class GameManager : MonoBehaviour
     }
     void StartGame()//初期値の設定
     {
+        Shuffle();
+        enemyShuffle();
+
         enemyLeaderHP = 5000;
         playerLeaderHP = 5000;
         ShowLeaderHP();
@@ -170,14 +217,9 @@ public class GameManager : MonoBehaviour
 
         if (enemyFieldCardList.Length < 5)
         {
-            if (enemyFieldCardList.Length < 2)
-            {
-                CreateCard(3, enemyField);
-            }
-            else
-            {
-                CreateCard(2, enemyField);
-            }          
+            int cardID = enemydeck[0];
+            enemydeck.RemoveAt(0);
+            CreateCard(cardID, enemyField);
         }
         ChangeTurn();//ターンエンドする
     }
