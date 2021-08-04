@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform playerHand, playerField, enemyField;
     [SerializeField] Text playerLeaderHPText;
     [SerializeField] Text enemyLeaderHPText;
+    [SerializeField] Text playerManaPointText;
+    [SerializeField] Text playerDefaultManaPointText;
+
+    public int playerManaPoint; // 使用すると減るマナポイント
+    public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
 
     bool isPlayerTurn = true;
     List<int> deck = new List<int>() { 1, 2, 3, 1, 1, 2, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3 };
@@ -33,14 +38,49 @@ public class GameManager : MonoBehaviour
         playerLeaderHP = 5000;
         ShowLeaderHP();
 
+        /// マナの初期値設定 ///
+        playerManaPoint = 1;
+        playerDefaultManaPoint = 1;
+        ShowManaPoint();
+
         //初期手札を配る
         SetStartHand();
         //ターンの決定
         TurnCalc();
 
-
     }
 
+    void ShowManaPoint() // マナポイントを表示するメソッド
+    {
+        playerManaPointText.text = playerManaPoint.ToString();
+        playerDefaultManaPointText.text = playerDefaultManaPoint.ToString();
+    }
+
+    public void ReduceManaPoint(int cost)//コストの分、マナポイントを減らす
+    {
+        playerManaPoint -= cost;
+        ShowManaPoint();
+
+        SetCanUsePanelHand();
+    }
+
+    void SetCanUsePanelHand() // 手札のカードを取得して、使用可能なカードにCanUseパネルを付ける
+    {
+        CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
+        foreach (CardController card in playerHandCardList)
+        {
+            if (card.model.cost <= playerManaPoint)
+            {
+                card.model.canUse = true;
+                card.view.SetCanUsePanel(card.model.canUse);
+            }
+            else
+            {
+                card.model.canUse = false;
+                card.view.SetCanUsePanel(card.model.canUse);
+            }
+        }
+    }
     void CreateCard(int cardID, Transform place)
     {
         CardController card = Instantiate(cardPrefab, place);
@@ -75,7 +115,10 @@ public class GameManager : MonoBehaviour
             CreateCard(cardID, hand);
         }
 
+        SetCanUsePanelHand();
     }
+
+    
 
     void SetStartHand()//手札を三枚配る
     {
@@ -110,7 +153,13 @@ public class GameManager : MonoBehaviour
         CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
         SetAttackableFieldCard(playerFieldCardList, true);
 
+        //マナを増やす
+        playerDefaultManaPoint++;
+        playerManaPoint = playerDefaultManaPoint;
+        ShowManaPoint();
+
         DrowCard(playerHand);//手札を一枚加える
+
     }
 
     void EnemyTurn()

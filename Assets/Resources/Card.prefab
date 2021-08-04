@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: -332446725310278066}
+  movement: {fileID: 0}
 --- !u!114 &-332446725310278066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +111,7 @@ MonoBehaviour:
   costText: {fileID: 7287471737781957727}
   iconImage: {fileID: 1112672953972111251}
   canAttackPanel: {fileID: 1679386441165388971}
+  canUsePanel: {fileID: 1679386441165388971}
 --- !u!114 &-6859334491598854611
 MonoBehaviour:
   m_ObjectHideFlags: 0

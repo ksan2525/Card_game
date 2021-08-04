@@ -11,8 +11,9 @@ public class CardModel
     public int power;
     public Sprite icon;
 
+    public bool canUse = false;
     public bool PlayerCard = false;
-
+    public bool FieldCard = false;
     public bool canAttack = false;
     public CardModel(int cardID, bool playerCard)//データを受け取り、その処理
     {

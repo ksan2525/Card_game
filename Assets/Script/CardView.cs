@@ -7,7 +7,7 @@ public class CardView : MonoBehaviour
 {
     [SerializeField] Text nameText, powerText, costText;
     [SerializeField] Image iconImage;
-    [SerializeField] GameObject canAttackPanel;
+    [SerializeField] GameObject canAttackPanel, canUsePanel;
 
     public void show(CardModel cardModel)//cardModelÇÃÉfÅ[É^éÊìæÇ∆îΩâf
     {
@@ -20,5 +20,10 @@ public class CardView : MonoBehaviour
     public void SetCanAttackPanel(bool flag)
     {
         canAttackPanel.SetActive(flag);
+    }
+
+    public void SetCanUsePanel(bool flag)
+    {
+        canUsePanel.SetActive(flag);
     }
 }
