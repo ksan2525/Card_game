@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public int playerManaPoint; // 使用すると減るマナポイント
     public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
+    public GameObject endbutton;
 
     bool isPlayerTurn = true;
 
@@ -78,11 +80,13 @@ public class GameManager : MonoBehaviour
     }
     void StartGame()//初期値の設定
     {
+
+        
         Shuffle();
         enemyShuffle();
 
         enemyLeaderHP = 5000;
-        playerLeaderHP = 5000;
+        playerLeaderHP = 50000;
         ShowLeaderHP();
 
         /// マナの初期値設定 ///
@@ -183,7 +187,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            EnemyTurn();
+            //EnemyTurn();
+            StartCoroutine(EnemyTurn());//StartCoroutineで呼び出す
         }
     }
 
@@ -196,6 +201,7 @@ public class GameManager : MonoBehaviour
     void PlayerTurn()
     {
         Debug.Log("Playerのターン");
+        endbutton.SetActive(true);
 
         CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
         SetAttackableFieldCard(playerFieldCardList, true);
@@ -209,11 +215,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void EnemyTurn()
+    IEnumerator EnemyTurn()//StartCoroutineで呼ばれたので、IEnnumeratorに変更
     {
+        endbutton.SetActive(false);
+
         Debug.Log("Enemyのターン");
 
         CardController[] enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
+
+        yield return new WaitForSeconds(1f);
+
+        //敵のフィールドのカードを攻撃可能にして、緑の枠をつける
+        SetAttackableFieldCard(enemyFieldCardList, true);
+
+        yield return new WaitForSeconds(1f);
 
         if (enemyFieldCardList.Length < 5)
         {
@@ -221,6 +236,40 @@ public class GameManager : MonoBehaviour
             enemydeck.RemoveAt(0);
             CreateCard(cardID, enemyField);
         }
+
+        CardController[] enemyFieldCardListSecond = enemyField.GetComponentsInChildren<CardController>();
+
+        yield return new WaitForSeconds(1f);
+
+        while (Array.Exists(enemyFieldCardListSecond, card => card.model.canAttack))
+        {
+            //攻撃可能カードを取得
+            CardController[] enemyCanAttackCardList = Array.FindAll(enemyFieldCardListSecond, card => card.model.canAttack);
+            CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
+
+            int randomattack = UnityEngine.Random.Range(0, playerFieldCardList.Length);
+            CardController attackCard = enemyCanAttackCardList[0];
+
+            //AttackToLeader(attackCard, false);
+
+            if (playerFieldCardList.Length > 0)//プレイヤーノバにカードがある場合
+            {
+                CardController defenceCard = playerFieldCardList[randomattack];
+                CardBattle(attackCard, defenceCard);
+            }
+            else//プレイヤーの場にカードがない場合
+            {
+                AttackToLeader(attackCard, false);
+            }
+
+            yield return new WaitForSeconds(1f);
+
+            enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
+
+        }
+
+        yield return new WaitForSeconds(1f);
+
         ChangeTurn();//ターンエンドする
     }
 
@@ -278,7 +327,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        enemyLeaderHP -= attackCard.model.power;
+        if (attackCard.model.PlayerCard == true)//attackCardがプレイヤーのカードなら
+        {
+            enemyLeaderHP -= attackCard.model.power;//敵のリーダーのHPを減らす
+        }
+        else//attackCardが敵のカードなら
+        {
+            playerLeaderHP -= attackCard.model.power;//プレイヤーのリーダーのHPを減らす
+        }
+
+        //enemyLeaderHP -= attackCard.model.power;
 
         attackCard.model.canAttack = false;
         attackCard.view.SetCanAttackPanel(false);

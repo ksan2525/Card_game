@@ -1556,6 +1556,7 @@ MonoBehaviour:
   playerDefaultManaPointText: {fileID: 687317478}
   playerManaPoint: 0
   playerDefaultManaPoint: 0
+  endbutton: {fileID: 801025181}
   playerLeaderHP: 0
   enemyLeaderHP: 0
 --- !u!4 &1244904738
