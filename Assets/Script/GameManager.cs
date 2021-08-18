@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int playerManaPoint; // 使用すると減るマナポイント
     public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
     public GameObject endbutton;
+    public Transform enemyattackcard;
 
     bool isPlayerTurn = true;
 
@@ -247,13 +248,22 @@ public class GameManager : MonoBehaviour
             CardController[] enemyCanAttackCardList = Array.FindAll(enemyFieldCardListSecond, card => card.model.canAttack);
             CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
 
+            
+
             int randomattack = UnityEngine.Random.Range(0, playerFieldCardList.Length);
             CardController attackCard = enemyCanAttackCardList[0];
 
-            //AttackToLeader(attackCard, false);
+            string kougekicard = playerFieldCardList[randomattack].ToString();
+            //攻撃するカードの座標を取得
+            enemyattackcard = GameObject.Find(kougekicard).transform;
+
+            Debug.Log(enemyattackcard.transform.position);
+
+
 
             if (playerFieldCardList.Length > 0)//プレイヤーノバにカードがある場合
             {
+                
                 CardController defenceCard = playerFieldCardList[randomattack];
                 CardBattle(attackCard, defenceCard);
             }
