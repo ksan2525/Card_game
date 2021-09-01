@@ -22,7 +22,7 @@ public class CardController : MonoBehaviour
 
     public void DestroyCard(CardController card)
     {
-        Destroy(card.gameObject);
+        Destroy(card.gameObject,1);
     }
 
     public void DropField()

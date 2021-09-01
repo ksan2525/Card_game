@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int playerManaPoint; // 使用すると減るマナポイント
     public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
     public GameObject endbutton;
-    public Transform enemyattackcard;
+    public Vector3 enemyattackcard;
 
     bool isPlayerTurn = true;
 
@@ -205,6 +205,7 @@ public class GameManager : MonoBehaviour
         endbutton.SetActive(true);
 
         CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
+        //Debug.Log(string.Join(",",playerFieldCardList));
         SetAttackableFieldCard(playerFieldCardList, true);
 
         //マナを増やす
@@ -248,20 +249,19 @@ public class GameManager : MonoBehaviour
             CardController[] enemyCanAttackCardList = Array.FindAll(enemyFieldCardListSecond, card => card.model.canAttack);
             CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
 
-            
-
             int randomattack = UnityEngine.Random.Range(0, playerFieldCardList.Length);
             CardController attackCard = enemyCanAttackCardList[0];
 
             string kougekicard = playerFieldCardList[randomattack].ToString();
+
             //攻撃するカードの座標を取得
-            enemyattackcard = GameObject.Find(kougekicard).transform;
+            enemyattackcard = playerField.GetComponentInChildren<Transform>().transform.localPosition;
+            
+            Debug.Log(enemyattackcard);
 
-            Debug.Log(enemyattackcard.transform.position);
 
 
-
-            if (playerFieldCardList.Length > 0)//プレイヤーノバにカードがある場合
+            if (playerFieldCardList.Length > 0)//プレイヤーの場にカードがある場合
             {
                 
                 CardController defenceCard = playerFieldCardList[randomattack];
@@ -272,13 +272,13 @@ public class GameManager : MonoBehaviour
                 AttackToLeader(attackCard, false);
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
 
             enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
 
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         ChangeTurn();//ターンエンドする
     }
