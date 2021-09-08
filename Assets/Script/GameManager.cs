@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
         Shuffle();
         enemyShuffle();
 
-        enemyLeaderHP = 5000;
-        playerLeaderHP = 50000;
+        enemyLeaderHP = 25000;
+        playerLeaderHP = 25000;
         ShowLeaderHP();
 
         /// マナの初期値設定 ///
@@ -225,12 +225,12 @@ public class GameManager : MonoBehaviour
 
         CardController[] enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         //敵のフィールドのカードを攻撃可能にして、緑の枠をつける
         SetAttackableFieldCard(enemyFieldCardList, true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (enemyFieldCardList.Length < 5)
         {
@@ -241,7 +241,7 @@ public class GameManager : MonoBehaviour
 
         CardController[] enemyFieldCardListSecond = enemyField.GetComponentsInChildren<CardController>();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         while (Array.Exists(enemyFieldCardListSecond, card => card.model.canAttack))
         {
@@ -252,10 +252,10 @@ public class GameManager : MonoBehaviour
             int randomattack = UnityEngine.Random.Range(0, playerFieldCardList.Length);
             CardController attackCard = enemyCanAttackCardList[0];
 
-            string kougekicard = playerFieldCardList[randomattack].ToString();
+            //string kougekicard = playerFieldCardList[randomattack].ToString();
 
             //攻撃するカードの座標を取得
-            enemyattackcard = playerField.GetComponentInChildren<Transform>().transform.localPosition;
+            //enemyattackcard = playerField.GetComponentInChildren<Transform>().transform.localPosition;
             
             Debug.Log(enemyattackcard);
 
