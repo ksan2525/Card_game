@@ -18,6 +18,7 @@ public class CardController : MonoBehaviour
     {
         model = new CardModel(cardID, playerCard);//カードデータを生成
         view.show(model);//表示
+        //movement.Deckdrow(place);
     }
 
     public void DestroyCard(CardController card)

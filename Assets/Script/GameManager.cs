@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CardController cardPrefab;
-    [SerializeField] Transform playerHand, playerField, enemyField;
+    [SerializeField] Transform playerHand, playerField, enemyField, Playerdeck;
     [SerializeField] Text playerLeaderHPText;
     [SerializeField] Text enemyLeaderHPText;
     [SerializeField] Text playerManaPointText;
@@ -138,9 +139,10 @@ public class GameManager : MonoBehaviour
         CardController card = Instantiate(cardPrefab, place);
 
         // Playerの手札に生成されたカードはPlayerのカードとする
-        if (place == playerHand)
+        if (place == Playerdeck)
         {
             card.Init(cardID, true);
+            cardPrefab.transform.DOLocalMove(playerHand.transform.position, 100f);
         }
         else
         {
@@ -148,6 +150,8 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    
 
     void DrowCard(Transform hand)//カードを引く
     {
@@ -176,7 +180,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            DrowCard(playerHand);
+            DrowCard(Playerdeck);
         }
     }
 
@@ -213,7 +217,7 @@ public class GameManager : MonoBehaviour
         playerManaPoint = playerDefaultManaPoint;
         ShowManaPoint();
 
-        DrowCard(playerHand);//手札を一枚加える
+        DrowCard(Playerdeck);//手札を一枚加える
 
     }
 

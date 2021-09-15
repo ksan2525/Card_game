@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -22,7 +23,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         }
         else
         {
-            if(card.model.canAttack == false)//攻撃不可能なカードは動かせない
+            if (card.model.canAttack == false)//攻撃不可能なカードは動かせない
             {
                 canDrag = false;
             }
@@ -57,5 +58,10 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
         transform.SetParent(cardParent, false);
         GetComponent<CanvasGroup>().blocksRaycasts = true; // blocksRaycastsをオンにする
+    }
+
+    public void Deckdrow(Transform cardidou)
+    {
+        transform.DOLocalMove(cardidou.transform.position, 1f);
     }
 }
