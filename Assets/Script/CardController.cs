@@ -8,6 +8,8 @@ public class CardController : MonoBehaviour
     public CardModel model;//カードのデータを処理
     public CardMovement movement;  // 移動(movement)に関することを操作
 
+
+
     private void Awake()//
     {
         view = GetComponent<CardView>();

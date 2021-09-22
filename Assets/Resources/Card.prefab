@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   view: {fileID: -332446725310278066}
   movement: {fileID: 0}
+  canvas: {fileID: 8558444168889022339}
 --- !u!114 &-332446725310278066
 MonoBehaviour:
   m_ObjectHideFlags: 0

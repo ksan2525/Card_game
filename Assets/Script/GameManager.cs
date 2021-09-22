@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject endbutton;
     public Vector3 enemyattackcard;
 
+    public GameObject canvas;
+
+
+
     bool isPlayerTurn = true;
 
     List<int> deck = new List<int>() { 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, };
@@ -138,11 +142,23 @@ public class GameManager : MonoBehaviour
     {
         CardController card = Instantiate(cardPrefab, place);
 
+        GameObject[] cardbox = new GameObject[4];
+        
+
+
         // Playerの手札に生成されたカードはPlayerのカードとする
         if (place == Playerdeck)
         {
             card.Init(cardID, true);
-            cardPrefab.transform.DOLocalMove(playerHand.transform.position, 100f);
+            
+
+            for (int i = 0; i < 4; i++)//for文は何回繰り替えすループ分。iが4以上になったら止まる。iを1ずつ足す
+            {
+                GameObject childobject = GameObject.Find("card(clone)");
+                cardbox[i] = childobject;//i番目の配列にchildobjectを入れる
+                cardbox[i].transform.parent = canvas.transform;//i番目のcardboxの親オブジェクトをキャンバスにする。
+            }
+            //cardPrefab.transform.DOLocalMove(new Vector3(0,-200,0) ,10f);
         }
         else
         {

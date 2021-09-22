@@ -1636,10 +1636,10 @@ RectTransform:
   m_Father: {fileID: 260194985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.3255615, y: -6.6867676}
-  m_SizeDelta: {x: 200, y: 300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 67.5, y: -95.175}
+  m_SizeDelta: {x: 135, y: 190.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1193663532
 MonoBehaviour:
@@ -1787,6 +1787,7 @@ MonoBehaviour:
   playerDefaultManaPoint: 0
   endbutton: {fileID: 801025181}
   enemyattackcard: {x: 0, y: 0, z: 0}
+  canvas: {fileID: 833149329}
   playerLeaderHP: 10000
   enemyLeaderHP: 10000
 --- !u!4 &1244904738
