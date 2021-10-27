@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int playerDefaultManaPoint; // 毎ターン増えていくベースのマナポイント
     public GameObject endbutton;
     public Vector3 enemyattackcard;
+    public GameObject ClearCanvas;
 
     public GameObject canvas;
 
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
     void StartGame()//初期値の設定
     {
 
-        
+
         Shuffle();
         enemyShuffle();
 
@@ -143,20 +144,20 @@ public class GameManager : MonoBehaviour
         CardController card = Instantiate(cardPrefab, place);
 
         GameObject[] cardbox = new GameObject[4];
-        
+
 
 
         // Playerの手札に生成されたカードはPlayerのカードとする
-        if (place == Playerdeck)
+        if (place == playerHand)
         {
             card.Init(cardID, true);
-            
+
 
             for (int i = 0; i < 4; i++)//for文は何回繰り替えすループ分。iが4以上になったら止まる。iを1ずつ足す
             {
                 GameObject childobject = GameObject.Find("card(clone)");
                 cardbox[i] = childobject;//i番目の配列にchildobjectを入れる
-                cardbox[i].transform.parent = canvas.transform;//i番目のcardboxの親オブジェクトをキャンバスにする。
+                //cardbox[i].transform.parent = canvas.transform;//i番目のcardboxの親オブジェクトをキャンバスにする。
             }
             //cardPrefab.transform.DOLocalMove(new Vector3(0,-200,0) ,10f);
         }
@@ -167,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
+
 
     void DrowCard(Transform hand)//カードを引く
     {
@@ -190,13 +191,13 @@ public class GameManager : MonoBehaviour
         SetCanUsePanelHand();
     }
 
-    
+
 
     void SetStartHand()//手札を三枚配る
     {
         for (int i = 0; i < 3; i++)
         {
-            DrowCard(Playerdeck);
+            DrowCard(playerHand);
         }
     }
 
@@ -233,7 +234,7 @@ public class GameManager : MonoBehaviour
         playerManaPoint = playerDefaultManaPoint;
         ShowManaPoint();
 
-        DrowCard(Playerdeck);//手札を一枚加える
+        DrowCard(playerHand);//手札を一枚加える
 
     }
 
@@ -276,14 +277,14 @@ public class GameManager : MonoBehaviour
 
             //攻撃するカードの座標を取得
             //enemyattackcard = playerField.GetComponentInChildren<Transform>().transform.localPosition;
-            
+
             Debug.Log(enemyattackcard);
 
 
 
             if (playerFieldCardList.Length > 0)//プレイヤーの場にカードがある場合
             {
-                
+
                 CardController defenceCard = playerFieldCardList[randomattack];
                 CardBattle(attackCard, defenceCard);
             }
@@ -383,10 +384,16 @@ public class GameManager : MonoBehaviour
         if (enemyLeaderHP <= 0)
         {
             enemyLeaderHP = 0;
+            EndGame();
         }
 
         playerLeaderHPText.text = playerLeaderHP.ToString();
         enemyLeaderHPText.text = enemyLeaderHP.ToString();
+    }
+
+    public void EndGame()
+    {
+        ClearCanvas.SetActive(true);
     }
 
 }
